@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "26.0.1"
+    apptOptions.cruncherEnabled = false
+    apptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "cn.edu.gdmec.android.mobilecuard"
         minSdkVersion 19
