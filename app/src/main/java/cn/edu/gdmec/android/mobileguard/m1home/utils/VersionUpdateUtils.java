@@ -104,7 +104,7 @@ public class VersionUpdateUtils {
 
 
         });
-        builder.setNegativeButton("暂时不升级", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface ,int i){
                 dialogInterface.dismiss();
