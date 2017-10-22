@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
         setUpPasswordDialog.show();
     }
     /**
-     * 弹出输入密码对话框
+     * 弹出输入密码对话框XXX
      */
     private void showInterPswdDialog(){
         final String password = getPassword();
