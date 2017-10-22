@@ -22,7 +22,7 @@ public class ContactInfoParser {
         //获取内容解析者
         ContentResolver resolver = context.getContentResolver();
         // 1、查询raw_contacts表，吧联系人的id取出来
-        Uri uri = Uri.parse("content://com.anroid.contacts/raw_contacts");
+        Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
         Uri datauri = Uri.parse("content://com.android.contacts/data");
         List<ContactInfo> infos = new ArrayList<ContactInfo>();
         Cursor cursor = resolver.query(uri, new String[] {"contact_id"}, null,null,null);
