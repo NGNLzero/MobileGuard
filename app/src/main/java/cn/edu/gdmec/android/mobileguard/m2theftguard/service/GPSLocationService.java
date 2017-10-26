@@ -19,7 +19,7 @@ import android.telephony.SmsManager;
 /**
  * Created by Lenovo on 2017/10/24.
  */
-
+//测试一波
 public class GPSLocationService extends Service {
     private  LocationManager lm;
     private MyListener listener;
