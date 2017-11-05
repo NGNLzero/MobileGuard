@@ -82,17 +82,17 @@ public class BlackContactAdapter extends BaseAdapter{
         holder.mContactImgv.setBackgroundResource(R.drawable.brightpurple_contact_icon);
         holder.mDeleteView.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View  view){
+            public void onClick(View  view) {
                 boolean datele = dao.detele(contactInfos.get(i));
-                if(datele){
+                if (datele) {
                     contactInfos.remove(contactInfos.get(i));
                     BlackContactAdapter.this.notifyDataSetChanged();
                     // 如果数据库中没有数据了，则执行回调函数
-                    if(dao.getTotalNumber() == 0){
+                    if (dao.getTotalNumber() == 0) {
                         callBack.DataSizeChanged();
-                    } else{
-                        Toast.makeText(context, "删除失败！", Toast.LENGTH_LONG).show();
                     }
+                } else {
+                    Toast.makeText(context, "删除失败！", Toast.LENGTH_LONG).show();
                 }
             }
         });
