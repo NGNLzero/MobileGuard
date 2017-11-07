@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.IntentFilter;
+import android.media.Image;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.text.format.Formatter;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -98,13 +100,17 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
         receciver = new UninstallRececiver();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addDataScheme("package");
+        registerReceiver(receciver, intentFilter);
         initView();
     }
     /*初始化控件*/
     private void initView(){
         findViewById(R.id.rl_titlebar).setBackgroundColor(
                 getResources().getColor(R.color.bright_yellow));
+        ImageView mLeftImgv = (ImageView) findViewById(R.id.imgv_leftbtn);
         ((TextView) findViewById(R.id.tv_title)).setText("软件管家");
+        mLeftImgv.setOnClickListener(this);
+        mLeftImgv.setImageResource(R.drawable.back);
         mPhoneMemoryTV = (TextView) findViewById(R.id.tv_phonememory_appmanager);
         mSDMemoryTV = (TextView) findViewById(R.id.tv_sdmemory_appmanager);
         mAppNumTV = (TextView) findViewById(R.id.tv_appnumber);
