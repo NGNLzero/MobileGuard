@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.gdmec.android.mobileguard">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -10,12 +11,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <!--通讯卫士部分-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
-
-
+    <!-- 通讯卫士部分 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
 
     <application
         android:name=".App"
@@ -24,10 +23,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
-
-        </activity>
-        <activity android:name=".m1home.HomeActivity" >
+        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".m1home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,9 +36,9 @@
         <activity android:name=".m2theftguard.Setup2Activity" />
         <activity android:name=".m2theftguard.Setup3Activity" />
         <activity android:name=".m2theftguard.Setup4Activity" />
-        <!--通讯卫士部分-->
-        <activity android:name=".m3communicationguard.AddBlackNumberActivity"/>
-        <activity android:name=".m3communicationguard.SecurityPhoneActivity"/>
+        <!-- 通讯卫士部分 -->
+        <activity android:name=".m3communicationguard.AddBlackNumberActivity" />
+        <activity android:name=".m3communicationguard.SecurityPhoneActivity" />
 
         <receiver
             android:name=".m2theftguard.receiver.BootCompleteReceiver"
@@ -51,39 +48,44 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <activity android:name=".m2theftguard.ContactSelectActivity"/>
 
-        <service android:name=".m2theftguard.service.GPSLocationService"
+        <activity android:name=".m2theftguard.ContactSelectActivity" />
+
+        <service
+            android:name=".m2theftguard.service.GPSLocationService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <receiver android:name=".m2theftguard.receiver.SmsLostFindReceiver"
+        <receiver
+            android:name=".m2theftguard.receiver.SmsLostFindReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".m2theftguard.receiver.MyDeviceAdminReceiver"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
+        <receiver
+            android:name=".m2theftguard.receiver.MyDeviceAdminReceiver"
+            android:enabled="true"
             android:exported="true"
-            android:enabled="true">
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
-                android:resource="@xml/device_admin_sample"/>
+                android:resource="@xml/device_admin_sample" />
+
             <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
 
-        <!--通讯卫士部分-->
+        <!-- 通讯卫士部分 -->
         <receiver
             android:name=".m3communicationguard.receiver.InterceptCallReciever"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="2147483647">
-                <action android:name="android.intent.action.PHONE_STATE"/>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
         <receiver
@@ -91,9 +93,11 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="214748647">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".m4appmanager.AppManagerActivity"></activity>
     </application>
 
 </manifest>
