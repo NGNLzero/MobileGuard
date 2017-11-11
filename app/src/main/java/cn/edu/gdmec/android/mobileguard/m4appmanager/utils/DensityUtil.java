@@ -3,14 +3,13 @@ package cn.edu.gdmec.android.mobileguard.m4appmanager.utils;
 import android.content.Context;
 
 /**
- * Created by Lenovo on 2017/11/6.
+ * Created by pc on 2017/11/6.
  */
 
 public class DensityUtil {
-    //dis装换像素px
-    public static int dip2px(Context context, float dpValue){
+    public static int dip2px(Context context,float dpValue){
         try {
-            final float scale =  context.getResources().getDisplayMetrics().density;
+            final float scale = context.getResources().getDisplayMetrics().density;
             return (int) (dpValue * scale + 0.5f);
         }catch (Exception e){
             e.printStackTrace();
@@ -18,12 +17,10 @@ public class DensityUtil {
         return (int) dpValue;
     }
 
-    //像素px转换成dip
-    public static int px2dip(Context context, float pxValue){
+    public static int px2dip(Context context,float pxValue){
         try {
             final float scale = context.getResources().getDisplayMetrics().density;
-            return (int) (pxValue/ scale+0.5);
-
+            return (int) (pxValue * scale + 0.5f);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -13,49 +13,50 @@ import java.util.List;
 import cn.edu.gdmec.android.mobileguard.m4appmanager.entity.AppInfo;
 
 /**
- * Created by Lenovo on 2017/11/6.
+ * Created by pc on 2017/11/6.
  */
 
 public class AppInfoParser {
-    /*获取手机里面的所有应用程序*/
     public static List<AppInfo> getAppInfos(Context context){
         PackageManager pm = context.getPackageManager();
-        List<PackageInfo> packInfos = pm.getInstalledPackages(0);
-        List<AppInfo> appinfos = new ArrayList<AppInfo>();
+        List<PackageInfo>packInfos = pm.getInstalledPackages(0);
+        List<AppInfo>appinfos = new ArrayList<AppInfo>();
         for (PackageInfo packInfo:packInfos){
             AppInfo appinfo = new AppInfo();
-            String packname = packInfo.packageName;
+            String packname =packInfo.packageName;
             appinfo.packageName = packname;
+
             Drawable icon = packInfo.applicationInfo.loadIcon(pm);
             appinfo.icon = icon;
             String appname = packInfo.applicationInfo.loadLabel(pm).toString();
             appinfo.appName = appname;
-            //应用程序apk包的路径
+
             String apkpath = packInfo.applicationInfo.sourceDir;
             appinfo.apkPath = apkpath;
+
+            //1109
+            String appversion = packInfo.versionName;
+            appinfo.appVersion = appversion;
+
+
             File file = new File(apkpath);
             long appSize = file.length();
             appinfo.appSize = appSize;
-            //应用程序安装的位置
+
             int flags = packInfo.applicationInfo.flags;
             if ((ApplicationInfo.FLAG_EXTERNAL_STORAGE & flags)!=0){
-                //外部存储
                 appinfo.isInRoom = false;
-            }else {
-                //手机内存
+            }else{
                 appinfo.isInRoom = true;
-            }
-            if ((ApplicationInfo.FLAG_SYSTEM & flags)!=0){
-                //系统应用
-                appinfo.isUserApp = false;
+            }if ((ApplicationInfo.FLAG_SYSTEM & flags)!=0){
+                appinfo.isUserApp =false;
             }else {
-                //用户应用
                 appinfo.isUserApp = true;
-
             }
             appinfos.add(appinfo);
             appinfo = null;
+
         }
-        return  appinfos;
+        return appinfos;
     }
 }
