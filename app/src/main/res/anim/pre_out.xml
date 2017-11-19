@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromXDelta="0"
-    android:toXDelta="100%p"
-    android:fromYDelta="0"
-    android:toYDelta="0"
-    android:duration="500"
-    android:repeatCount="0">
+<!--<translate-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:fromXDelta="0"-->
+<!--android:toXDelta="100%p"-->
+<!--android:fromYDelta="0"-->
+<!--android:toYDelta="0"-->
+<!--android:duration="500"-->
+<!--android:repeatCount="0">-->
 
-    <scale
-        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-        android:fromXScale="0.05"
-        android:toXScale="1.4"
-        android:fromYScale="0.05"
-        android:toYScale="1.4"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:fillAfter="false"
-        android:startOffset="0"
-        android:duration="500"
-        android:repeatCount="0"/>
-</translate>
+<!--</translate>-->
+<!--<translate xmlns:android="http://schemas.android.com/apk/res/android"-->
+           <!--android:toXDelta="0"-->
+           <!--android:fromXDelta="-100%"-->
+           <!--android:duration="4000"-->
+    <!--/>-->
+<translate  xmlns:android="http://schemas.android.com/apk/res/android"
+android:fromYDelta="0"
+android:toYDelta="100%"
+android:duration="1000"
+/>

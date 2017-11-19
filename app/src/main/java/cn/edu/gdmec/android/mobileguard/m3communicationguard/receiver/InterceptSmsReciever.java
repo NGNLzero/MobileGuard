@@ -4,37 +4,38 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
 import cn.edu.gdmec.android.mobileguard.m3communicationguard.db.dao.BlackNumberDao;
 
-public class InterceptSmsReciever extends BroadcastReceiver {
+/**
+ * Created by Jack on 2017/10/29.
+ */
 
+public class InterceptSmsReciever extends BroadcastReceiver{
     @Override
-    public void onReceive(Context context, Intent intent) {
-        SharedPreferences mSP = context.getSharedPreferences("config",Context.MODE_PRIVATE);
-        boolean BlackNumStatus = mSP.getBoolean("BlackNumStatus",true);
+    public void onReceive(Context context, Intent intent){
+        SharedPreferences mSP = context.getSharedPreferences ( "config", Context.MODE_PRIVATE );
+        boolean BlackNumStatus = mSP.getBoolean ( "BlackNumStatus", true );
         if (!BlackNumStatus){
             return;
         }
-        BlackNumberDao dao = new BlackNumberDao(context);
-        Object[] objs = (Object[])intent.getExtras().get("pdus");
+        BlackNumberDao dao = new BlackNumberDao ( context );
+        Object[] objs = (Object[]) intent.getExtras ().get ( "pdus" );
         for (Object obj : objs){
-            SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
-            String sender = smsMessage.getOriginatingAddress();
-            String body = smsMessage.getMessageBody();
-            if (sender.startsWith("+86")){
-                sender = sender.substring(3,sender.length());
+            SmsMessage smsMessage = SmsMessage.createFromPdu ((byte[]) obj);
+            String sender = smsMessage.getOriginatingAddress ();
+            String body = smsMessage.getMessageBody ();
+            if (sender.startsWith ( "+86" )){
+                sender = sender.substring ( 3, sender.length () );
             }
-            int mode = dao.getBlackContactMode(sender);
-            Log.d("-------","onReceive"+mode);
-            if (mode == 2|| mode == 3){
-                abortBroadcast();
+            int mode = dao.getBlackContactMode ( sender );
+            Log.d ("======", "onReceive:"+mode);
+            if (mode == 2 || mode == 3){
+                abortBroadcast ();
             }
         }
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,9 +28,9 @@
             android:id="@+id/tv_appisroom"
             style="@style/textview14sp"
             android:layout_marginTop="3dp"
-            android:layout_alignLeft="@id/tv_appname"
-            android:layout_toRightOf="@id/imgv_appicon"
-            android:layout_below="@id/tv_appname"/>
+            android:layout_alignLeft="@+id/tv_appname"
+            android:layout_toRightOf="@+id/imgv_appicon"
+            android:layout_below="@+id/tv_appname"/>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
         android:layout_marginTop="3dp"
         android:visibility="visible">
         <TextView
-           android:id="@+id/tv_lanch_app"
+            android:id="@+id/tv_launch_app"
             style="@style/tvyellow14sp"
             android:drawableTop="@drawable/phoneicon_yellow_n"
             android:text="启动"/>
@@ -84,4 +85,5 @@
             android:text="关于"
             android:drawableTop="@drawable/abouticon_yellow_n"/>
     </LinearLayout>
+
 </LinearLayout>
