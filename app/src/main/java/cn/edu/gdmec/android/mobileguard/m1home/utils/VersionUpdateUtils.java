@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m1home.HomeActivity;
 import cn.edu.gdmec.android.mobileguard.m1home.entity.VersionEntity;
-import cn.edu.gdmec.android.mobileguard.m5virusscan.VirusScanActivity;
+import cn.edu.gdmec.android.mobileguard.m5virusscan.VIrusScanActivity;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 

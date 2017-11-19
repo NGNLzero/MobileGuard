@@ -26,7 +26,7 @@ import cn.edu.gdmec.android.mobileguard.m5virusscan.dao.AntiVirusDao;
  * Created by Jack on 2017/11/13.
  */
 
-public class VirusScanActivity extends AppCompatActivity implements View.OnClickListener{
+public class VIrusScanActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView mLastTimeTV;
     private TextView mDbVersionTV;
     private SharedPreferences mSP;
@@ -69,7 +69,7 @@ public class VirusScanActivity extends AppCompatActivity implements View.OnClick
         Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                AntiVirusDao dao = new AntiVirusDao(VirusScanActivity.this);
+                AntiVirusDao dao = new AntiVirusDao(VIrusScanActivity.this);
                 String dbVersion = dao.getVirusDbVersion();
                 mDbVersionTV = (TextView) findViewById(R.id.tv_dbversion);
                 mDbVersionTV.setText("病毒数据库版本:"+dbVersion);
@@ -86,7 +86,7 @@ public class VirusScanActivity extends AppCompatActivity implements View.OnClick
 
     final private void UpdateDb(String localDbVersion){
 
-        final VersionUpdateUtils versionUpdateUtils = new VersionUpdateUtils(localDbVersion,VirusScanActivity.this,downloadCallback,null);
+        final VersionUpdateUtils versionUpdateUtils = new VersionUpdateUtils(localDbVersion,VIrusScanActivity.this,downloadCallback,null);
         new Thread(){
             @Override
             public void run() {
