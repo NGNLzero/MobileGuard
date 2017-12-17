@@ -16,6 +16,11 @@ import android.util.Log;
 
 
 public class App extends Application {
+    public static final String APPLOCK_ACTION = "cn.edu.gdmec.android.mobileguard.m9advancedtools.applock";
+    public static final String APPLOCK_CONTENT_URI = "content://cn.edu.gdmec.android.mobileguard.m9advancedtools.applock";
+
+
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -28,7 +33,7 @@ public class App extends Application {
     public void correctSIM(){
         //检查sim卡是否发生变化
         SharedPreferences sp = getSharedPreferences("config", Context.MODE_PRIVATE);
-        // 获取防盗保护的状态
+            // 获取防盗保护的状态
         boolean protecting = sp.getBoolean("protecting",true);
         if(protecting){
             //得到绑定的sim卡串号
