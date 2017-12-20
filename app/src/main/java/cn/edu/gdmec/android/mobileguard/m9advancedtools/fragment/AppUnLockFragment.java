@@ -106,7 +106,7 @@ public class AppUnLockFragment extends Fragment {
             }
         });
     }
-
+//22
     private void fillData() {
         final List<AppInfo> aInfos = new ArrayList<AppInfo>();
         new Thread(){
