@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,78 +19,67 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.gdmec.android.mobileguard.App;
 import cn.edu.gdmec.android.mobileguard.R;
-import cn.edu.gdmec.android.mobileguard.m4appmanager.entity.AppInfo;
-import cn.edu.gdmec.android.mobileguard.m4appmanager.utils.AppInfoParser;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.adapter.AppLockAdapter;
-import cn.edu.gdmec.android.mobileguard.m9advancedtools.db.AppLockDao;
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.db.dao.AppLockDao;
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.entity.AppInfo;
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.utils.AppInfoParser;
+
+/**
+ * Created by Jack on 2017/12/3.
+ */
 
 
 public class AppLockFragment extends Fragment {
-
     private Context context;
     private TextView mLockTV;
     private ListView mLockLV;
     private AppLockDao dao;
-    List<AppInfo> mLockApps = new ArrayList<AppInfo>();
+    List<AppInfo> mLockApps = new ArrayList<AppInfo> ();
     private AppLockAdapter adapter;
-    private Uri uri = Uri.parse(App.APPLOCK_CONTENT_URI);
-    private Handler mHandler = new Handler() {
-        @Override
+    //private Uri uri = Uri.parse(App.APPLOCK_CONTENT_URI);
+    private Uri uri = Uri.parse("content://cn.edu.gdmec.android.mobileguard.m9advancedtools.applock");
+    private Handler mHandler = new Handler(){
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 10:
                     mLockApps.clear();
-                    mLockApps.addAll((List<AppInfo>) msg.obj);
-                    if (adapter == null) {
+                    mLockApps.addAll((List<AppInfo>)msg.obj);
+                    if(adapter == null){
                         adapter = new AppLockAdapter(mLockApps, getActivity());
                         mLockLV.setAdapter(adapter);
-                    } else {
+                    }else{
                         adapter.notifyDataSetChanged();
                     }
-                    mLockTV.setText("加锁应用" + mLockApps.size() + "个");
+                    mLockTV.setText("加锁应用"+mLockApps.size()+"个");
                     break;
             }
-        }
+        };
     };
-
-
     private List<AppInfo> appInfos;
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//View view = inflater.inflate(R.layout.fragment_app_lock, null);
-//    mLockTV = (TextView) view.findViewById(R.id.tv_lock);
-//    mLockLV = (ListView) view.findViewById(R.id.lv_lock);
-//        return view;
-//    }
-
-
-    @Nullable
+//模块
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_app_lock, null);
+    public void onAttach(Context context){
+        super.onAttach ( context );
+        this.context = context;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate( R.layout.fragment_applock, null);
         mLockTV = (TextView) view.findViewById(R.id.tv_lock);
         mLockLV = (ListView) view.findViewById(R.id.lv_lock);
         return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
-
-
-    @Override
-    public void onResume() {
+    public void onResume(){
         dao = new AppLockDao(getActivity());
         appInfos = AppInfoParser.getAppInfos(getActivity());
         fillData();
         initListener();
-        getActivity().getContentResolver().registerContentObserver(uri, true, new ContentObserver(new Handler()) {
+        getActivity().getContentResolver().registerContentObserver(uri, true, new ContentObserver (new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 fillData();
@@ -102,33 +90,35 @@ public class AppLockFragment extends Fragment {
 
     private void fillData() {
         final List<AppInfo> aInfos = new ArrayList<AppInfo>();
-        new Thread() {
-            @Override
+        new Thread(){
             public void run() {
                 for (AppInfo appInfo : appInfos) {
-                    if (dao.find(appInfo.packageName)) {
+                    if(dao.find(appInfo.packageName)){
                         //已加锁
                         appInfo.isLock = true;
                         aInfos.add(appInfo);
-                     }
+                    }
                 }
                 Message msg = new Message();
                 msg.obj = aInfos;
                 msg.what = 10;
                 mHandler.sendMessage(msg);
-            }
+            };
         }.start();
     }
 
     private void initListener() {
-        mLockLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mLockLV.setOnItemClickListener(new AdapterView.OnItemClickListener () {
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    final int position, long id) {
+                //播放一个动画效果
+                TranslateAnimation ta = new TranslateAnimation( Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1.0f,
+                        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
                 ta.setDuration(300);
                 view.startAnimation(ta);
-                new Thread() {
-                    @Override
+                new Thread(){
                     public void run() {
                         try {
                             Thread.sleep(300);
@@ -138,18 +128,16 @@ public class AppLockFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                //删除数据库包名
-                                dao.delete(mLockApps.get(i).packageName);
+                                //删除数据库的包名
+                                dao.delete(mLockApps.get(position).packageName);
                                 //更新界面
-                                mLockApps.remove(i);
+                                mLockApps.remove(position);
                                 adapter.notifyDataSetChanged();
-
                             }
                         });
-                    }
+                    };
                 }.start();
             }
-
         });
     }
 }

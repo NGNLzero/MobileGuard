@@ -82,6 +82,7 @@ public class AddBlackNumberActivity extends AppCompatActivity implements View.On
                     Toast.makeText ( this, "电话号码,手机号和类型不能为空！", Toast.LENGTH_LONG ).show ();
                     return;
                 } else {
+                    // 电话号码,手机号和类型不能为空
                     BlackContactInfo blackContactInfo=new BlackContactInfo ();
                     blackContactInfo.phoneNumber=number;
                     blackContactInfo.contactName=name;
@@ -89,10 +90,13 @@ public class AddBlackNumberActivity extends AppCompatActivity implements View.On
                     blackContactInfo.style=style;
 
                     if (mSmsCB.isChecked () & mTelCB.isChecked ()) {
+                        // 两种拦截模式都选
                         blackContactInfo.mode=3;
                     } else if (mSmsCB.isChecked () & !mTelCB.isChecked ()) {
+                        // 短信拦截
                         blackContactInfo.mode=2;
                     } else if (!mSmsCB.isChecked () & mTelCB.isChecked ()) {
+                        // 电话拦截
                         blackContactInfo.mode=1;
                     } else {
                         Toast.makeText ( this, "请选择拦截模式！", Toast.LENGTH_SHORT ).show ();

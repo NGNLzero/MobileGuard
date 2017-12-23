@@ -22,7 +22,9 @@ import cn.edu.gdmec.android.mobileguard.m3communicationguard.entity.BlackContact
 
 
     public class SecurityPhoneActivity extends AppCompatActivity implements View.OnClickListener{
+        /** 有黑名单时，显示的帧布局 */
         private FrameLayout mHaveBlackNumber;
+        /** 没有黑名单时，显示的帧布局 */
         private FrameLayout mNoBlackNumber;
         private BlackNumberDao dao;
         private ListView mListView;
@@ -42,6 +44,7 @@ import cn.edu.gdmec.android.mobileguard.m3communicationguard.entity.BlackContact
                 mHaveBlackNumber.setVisibility ( View.GONE );
                 mNoBlackNumber.setVisibility ( View.VISIBLE );
             }else if ( totalNumber > 0){
+                // 数据库中含有黑名单数据
                 mHaveBlackNumber.setVisibility ( View.VISIBLE );
                 mNoBlackNumber.setVisibility ( View.GONE );
                 pagenumber = 0;
@@ -79,8 +82,12 @@ import cn.edu.gdmec.android.mobileguard.m3communicationguard.entity.BlackContact
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i){
                 switch (i){
+                    //i是列表的滚动状态
                     case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                        // 列表滑动后静止
+                        // 获取最后一个可见条目
                         int lastVisiblePosition = mListView.getLastVisiblePosition ();
+                        // 如果当前条目是最后一个 增查询更多的数据
                         if (lastVisiblePosition == pageBlackNumber.size () - 1){
                             pagenumber++;
                             if (pagenumber * pagesize >= totalNumber){
@@ -117,6 +124,7 @@ import cn.edu.gdmec.android.mobileguard.m3communicationguard.entity.BlackContact
                 finish ();
                 break;
             case R.id.btn_addblacknumber:
+                // 跳转至添加黑名单页面
                 startActivity ( new Intent ( this, AddBlackNumberActivity.class ) );
                 break;
         }

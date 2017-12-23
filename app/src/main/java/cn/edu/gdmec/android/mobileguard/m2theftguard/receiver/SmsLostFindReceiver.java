@@ -28,20 +28,30 @@ public class SmsLostFindReceiver extends BroadcastReceiver{
         sharedPreferences = context.getSharedPreferences ( "config",
                 Activity.MODE_PRIVATE);
         boolean protecting = sharedPreferences.getBoolean ( "protecting", true );
+        // 如果防盗保护开启
         if (protecting){
+            // 获取超级管理员
             DevicePolicyManager dpm =
                     (DevicePolicyManager)context.getSystemService ( Context.DEVICE_POLICY_SERVICE );
+
+            //获取短信数据
             Object[] objs = (Object[]) intent.getExtras ().get ( "pdus" );
             for (Object obj : objs){
                 SmsMessage smsMessage = SmsMessage.createFromPdu ( (byte[]) obj );
+
+                //获取来信号码
                 String sender = smsMessage.getOriginatingAddress ();
                 if (sender.startsWith ( "+86" )){
                     sender =sender.substring ( 3, sender.length () );
                 }
+                //获取短信正文
                 String body = smsMessage.getMessageBody ();
                 String safephone = sharedPreferences.getString ( "safephone", null );
+
+                //如果该短信是安全号码发送的
                 if (!TextUtils.isEmpty ( safephone ) & sender.equals ( safephone )){
                     Log.i (TAG, "返回位置信息.");
+                    // 获取位置 放在服务里面去实现。
                     Intent service = new Intent ( context,
                             GPSLocationService.class);
                     context.startService ( service );

@@ -75,6 +75,7 @@
             style="@style/tvyellow14sp"
             android:text="设置"
             android:drawableTop="@drawable/settingicon_yellow_n"/>
+
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
@@ -84,6 +85,17 @@
             style="@style/tvyellow14sp"
             android:text="关于"
             android:drawableTop="@drawable/abouticon_yellow_n"/>
+
+        <!--课堂练习添加活动-->
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/black30"/>
+        <TextView
+            android:id="@+id/tv_act_app"
+            style="@style/tvyellow14sp"
+            android:text="活动"
+            android:drawableTop="@drawable/abouticon_yellow_a"/>
     </LinearLayout>
 
 </LinearLayout>

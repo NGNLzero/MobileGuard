@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools = "http://schemas.android.com/tools"
+          xmlns:tools="http://schemas.android.com/tools"
           package="cn.edu.gdmec.android.mobileguard">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -13,16 +12,25 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
-    <!-- 通讯卫士部分 -->
+    <!--m3通讯卫士部分-->
+
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
-    <!-- aa -->
+    <!--模块5-->
+    <!--手机杀毒部分sdk-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--清除缓存清理部分-->
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
-    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
-    <!--高级工具-->
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-                     tools:ignore = "ProtectedPermission"/>
+    <!--高级工具程序锁部分-->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermission"/>
+    <!--<uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>-->
+    <!--m9advancedtools permission-->
+   <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>-->
+
 
     <application
         android:name=".App"
@@ -33,15 +41,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- <activity android:name=".SplashActivity"> -->
-        <activity android:name=".m1home.HomeActivity">
+         <activity android:name=".SplashActivity">
+        <!--<activity android:name=".m1home.HomeActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".m2theftguard.LostFindActivity"/>
+
+        <activity android:name=".m1home.HomeActivity"/>
+
+        <activity android:name=".m2theftguard.LostFindActivity">
+        </activity>
         <activity android:name=".m2theftguard.Setup1Activity"/>
         <activity android:name=".m2theftguard.Setup2Activity"/>
         <activity android:name=".m2theftguard.Setup3Activity"/>
@@ -56,6 +68,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
+
 
         <service
             android:name=".m2theftguard.service.GPSLocationService"
@@ -83,9 +97,13 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
         </receiver>
-        <!-- 通讯卫士部分 -->
-        <activity android:name=".m3communicationguard.AddBlackNumberActivity"/>
-        <activity android:name=".m3communicationguard.SecurityPhoneActivity"/>
+        <!--通讯卫士部分-->
+        <activity android:name=".m3communicationguard.AddBlackNumberActivity">
+        </activity>
+
+        <activity android:name=".m3communicationguard.SecurityPhoneActivity">
+        </activity>
+
 
         <receiver
             android:name=".m3communicationguard.receiver.InterceptCallReciever"
@@ -96,6 +114,7 @@
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".m3communicationguard.receiver.InterceptSmsReciever"
             android:enabled="true"
@@ -104,20 +123,39 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>
-
         <activity android:name=".m4appmanager.AppManagerActivity"/>
-        <activity android:name=".m5virusscan.VIrusScanActivity"/>
+        <activity android:name=".m5virusscan.VirusScanActivity"/>
         <activity android:name=".m5virusscan.VirusScanSpeedActivity"/>
-        <activity android:name=".m6cleancache.CacheClearListActivity"/>
+        <!--m6-->
         <activity android:name=".m6cleancache.CleanCacheActivity"/>
+        <activity android:name=".m6cleancache.CacheClearListActivity"/>
+
+        <!--m8-->
         <activity android:name=".m8trafficmonitor.OperatorSetActivity"/>
         <activity android:name=".m8trafficmonitor.TrafficMonitoringActivity"/>
-        <activity android:name=".m9advancedtools.NumBelongtoActivity"/>
-        <activity android:name=".m9advancedtools.AdvancedToolsActivity"/>
-        <activity android:name=".m9advancedtools.EnterPswActivity">
-        </activity>
-        <activity android:name=".m9advancedtools.AppLockActivity">
-        </activity>
-    </application>
+        <service
+            android:name=".m8trafficmonitor.service.TrafficMonitoringService"
+            android:enabled="true"
+            android:exported="true"
+            android:persistent="true"/>
+        <receiver android:name=".m8trafficmonitor.reciver.BootCompleteReciever"
+                  android:enabled="true"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
+        <!--m9-->
+        <activity android:name=".m9advancedtools.AdvancedToolsActivity"/>
+        <activity android:name=".m9advancedtools.AppLockActivity"/>
+        <activity android:name=".m9advancedtools.EnterPswActivity"/>
+        <activity android:name=".m9advancedtools.NumBelongtoActivity"/>
+        <activity android:name=".m9advancedtools.SMSBackupActivity"/>
+        <activity android:name=".m9advancedtools.SMSReducitionActivity"/>
+        <service android:name=".m9advancedtools.service.AppLockService"
+                  android:persistent="true"/>
+
+
+    </application>
 </manifest>

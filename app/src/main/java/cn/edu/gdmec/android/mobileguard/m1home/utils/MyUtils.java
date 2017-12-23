@@ -17,7 +17,7 @@ import java.io.File;
  */
 
 public class MyUtils {
-    //获取版本号
+    //获取版本号,return 返回版本号
     public static String getVersion(Context context){
         PackageManager packageManager = context.getPackageManager();
         try {

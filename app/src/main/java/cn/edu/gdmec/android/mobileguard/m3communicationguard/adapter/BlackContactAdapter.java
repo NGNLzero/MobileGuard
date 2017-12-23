@@ -99,6 +99,7 @@ public class BlackContactAdapter extends BaseAdapter {
                 if (datele){
                     contactInfos.remove ( contactInfos.get ( i ) );
                     BlackContactAdapter.this.notifyDataSetChanged ();
+                    // 如果数据库中没有数据了，则执行回调函数
                     if (dao.getTotalNumber () == 0){
                         //callBack.DataSizeChanged ();
                         callBack.DataSizeChanged ();

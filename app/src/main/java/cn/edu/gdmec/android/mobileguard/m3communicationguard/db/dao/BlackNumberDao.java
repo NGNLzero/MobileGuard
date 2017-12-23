@@ -23,6 +23,7 @@ public class BlackNumberDao {
         super();
         blackNumberOpenHelper = new BlackNumberOpenHelper ( context,"blackNumber.db",null,1 );
     }
+    //添加数据
     public boolean add(BlackContactInfo blackContactInfo){
         SQLiteDatabase db = blackNumberOpenHelper.getWritableDatabase ();
         ContentValues values = new ContentValues (  );
@@ -38,6 +39,7 @@ public class BlackNumberDao {
         values.put ( "mode", blackContactInfo.mode );
         long rowid = db.insert ( "blacknumber", null, values );
         if (rowid == -1){
+            // 插入数据不成功
             return false;
         }else {
             return true;
@@ -50,6 +52,7 @@ public class BlackNumberDao {
         int rownumber = db.delete ( "blacknumber", "number=?",
                 new String[] {blackContactInfo.phoneNumber});
         if (rownumber == 0){
+            // 删除数据不成功
             return false;
         }else {
             return true;
@@ -58,6 +61,8 @@ public class BlackNumberDao {
 
     //分页查询数据库的记录
     public List<BlackContactInfo> getPageBlackNumber(int pagenumber, int pagesize){
+
+        // 得到可读的数据库
         SQLiteDatabase db = blackNumberOpenHelper.getReadableDatabase ();
         Cursor cursor = db.rawQuery ( "select number,mode,name,style from blacknumber limit ? offset ?",
                 new String[] { String.valueOf ( pagesize ),
@@ -95,6 +100,7 @@ public class BlackNumberDao {
     //根据号码查询黑名单信息
     public int getBlackContactMode(String number){
         Log.d ("incoming phonenumber", number);
+        // 得到可读的数据库
         SQLiteDatabase db = blackNumberOpenHelper.getReadableDatabase ();
         Cursor cursor = db.query ( "blacknumber", new String[]{"mode"}, "number=?",
                 new String[] { number }, null, null, null);
@@ -110,6 +116,7 @@ public class BlackNumberDao {
 
     //获得数据库的总数条目个数
     public int getTotalNumber(){
+        // 得到可读的数据库
         SQLiteDatabase db = blackNumberOpenHelper.getReadableDatabase ();
         Cursor cursor = db.rawQuery ( "select count(*) from blacknumber", null );
         cursor.moveToNext ();

@@ -40,7 +40,6 @@ public abstract class BaseSetUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstancesState){
         super.onCreate ( savedInstancesState );
-        requestWindowFeature ( Window.FEATURE_NO_TITLE );
         sp = getSharedPreferences ( "config", MODE_PRIVATE );
         //把设置布局注释掉，布局由具体的子类加载，抽象类不加载
         //setContentView(R.layout.activity_base_set_up);

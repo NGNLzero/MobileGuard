@@ -22,6 +22,7 @@ public class Setup4Activity extends BaseSetUpActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_setup_4 );
+        // 设置第4个小圆点的颜色
         ((RadioButton )findViewById ( R.id.rb_four )).setChecked ( true );
         initView();
     }
@@ -55,6 +56,7 @@ public class Setup4Activity extends BaseSetUpActivity {
 
     @Override
     public void showNext(){
+        //跳转至 防盗保护页面
         SharedPreferences.Editor editor = sp.edit ();
         editor.putBoolean ( "isSetUp", true );
         editor.commit ();

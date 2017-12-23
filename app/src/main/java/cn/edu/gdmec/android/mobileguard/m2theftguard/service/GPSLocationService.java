@@ -18,6 +18,7 @@ import android.telephony.SmsManager;
  * Created by Jack on 2017/10/24.
  */
 
+/**用于定位*/
 public class GPSLocationService extends Service{
     private LocationManager lm;
     private MyListener listener;
@@ -31,10 +32,15 @@ public class GPSLocationService extends Service{
         super.onCreate ();
         lm = (LocationManager) getSystemService ( LOCATION_SERVICE );
         listener = new MyListener();
+        //criteria 查询条件
+        //true只返回可用的位置提供者
         Criteria criteria = new Criteria (  );
+        //获取准确的位置。
         criteria.setAccuracy ( Criteria.ACCURACY_FINE );
+        //允许产生开销
         criteria.setCostAllowed ( true );
         String name = lm.getBestProvider ( criteria, true );
+        //权限检查
         if (ActivityCompat.checkSelfPermission ( this, Manifest.permission.ACCESS_FINE_LOCATION )
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission ( this, Manifest.permission.ACCESS_COARSE_LOCATION )
@@ -54,14 +60,17 @@ public class GPSLocationService extends Service{
             String result = sb.toString ();
             SharedPreferences sp = getSharedPreferences ( "config", MODE_PRIVATE );
             String safenumber = sp.getString ( "safephone", "" );
+            //发送gps坐标的短信
             SmsManager.getDefault ().sendTextMessage ( safenumber, null, result, null, null );
             stopSelf ();
 
         }
+        //当位置提供者 状态发生变化的时候调用的方法。
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras){
 
         }
+        //当某个位置提供者 不可用的时候调用的方法。
         @Override
         public void onProviderEnabled(String provider){
 
